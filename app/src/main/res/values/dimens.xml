@@ -1,0 +1,7 @@
+<resources>
+    <!--Dimensions of text-->
+    <dimen name="headingLarge">48sp</dimen>
+
+    <dimen name="defaultButtonWidth">150sp</dimen>
+    <dimen name="defaultButtonHeight">50sp</dimen>
+</resources>
