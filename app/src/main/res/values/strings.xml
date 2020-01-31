@@ -1,5 +1,8 @@
 <resources>
+    <!--APPLICATION WIDE STRINGS-->
     <string name="app_name">Intellisert</string>
+
+    <!--HOME SCREEN STRINGS -->
     <string name="homeButtonStart">Begin</string>
-    <string name="homeButtonQuit">Quit</string>
+
 </resources>
