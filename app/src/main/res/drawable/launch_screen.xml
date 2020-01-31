@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <!--BACKGROUND COLOR-->
+    <item android:drawable="@color/colorPrimary"/>
+    <!--BACKGROUND IMAGE-->
+    <item
+        android:drawable="@drawable/ic_icon_foreground"
+        android:gravity="center"
+    />
+</layer-list>

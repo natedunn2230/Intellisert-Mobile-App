@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher"
         >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
