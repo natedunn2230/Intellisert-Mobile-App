@@ -6,7 +6,7 @@ import com.example.intellisert_mobile_app.views.HomeActivity;
 
 public class HomeController implements Controllable {
 
-    HomeActivity view;
+    private HomeActivity view;
 
     public HomeController(HomeActivity view){
         this.view = view;

@@ -12,8 +12,8 @@ import com.example.intellisert_mobile_app.controllers.HomeController;
 
 public class HomeActivity extends AppCompatActivity implements BaseView {
 
-    HomeController controller;
-    Button buttonStart, buttonAbout;
+    private HomeController controller;
+    private Button buttonStart, buttonAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
