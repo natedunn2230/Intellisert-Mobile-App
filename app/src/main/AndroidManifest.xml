@@ -3,11 +3,10 @@
     package="com.example.intellisert_mobile_app">
 
     <supports-screens
-        android:smallScreens="false"
-        android:normalScreens="true"
-        android:largeScreens="true"
         android:anyDensity="true"
-    />
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="false" />
 
     <application
         android:allowBackup="true"
@@ -17,12 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".controllers.HomeActivity"
+            android:name=".views.WifiCredentialsActivity"
+            android:label="@string/title_activity_wifi_credentials"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".views.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Launcher"
-        >
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

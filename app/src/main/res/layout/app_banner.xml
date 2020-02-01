@@ -8,7 +8,7 @@
     android:background="@color/colorPrimaryDark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/app_banner_image"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight=".25"
@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/ic_icon_foreground" />
     <TextView
         android:textSize="@dimen/headingSmall"
-        android:id="@+id/textView"
+        android:id="@+id/app_banner_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -11,5 +11,6 @@
     <dimen name="marginSmall">5dp</dimen>
     <dimen name="marginMedium">10dp</dimen>
     <dimen name="marginMassive">50dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>
