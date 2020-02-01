@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".controllers.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
         >

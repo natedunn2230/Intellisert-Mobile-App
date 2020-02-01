@@ -5,19 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".activities.HomeActivity">
+    tools:context=".controllers.HomeActivity">
 
     <ImageView
         android:id="@+id/home_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/marginMassive"
         app:layout_constraintBottom_toTopOf="@+id/home_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125"
         app:srcCompat="@drawable/ic_icon_foreground"
         android:contentDescription="@string/app_name" />
 
@@ -32,20 +31,39 @@
         android:textSize="@dimen/headingLarge"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_icon" />
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="@dimen/defaultButtonWidth"
-        android:layout_height="@dimen/defaultButtonHeight"
-        android:background="@drawable/btn_rounded_complement"
-        android:text="@string/homeButtonStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_header"
-        app:layout_constraintVertical_bias="0.4" />
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="@dimen/defaultButtonWidth"
+            android:layout_height="@dimen/defaultButtonHeight"
+            android:background="@drawable/btn_rounded_complement"
+            android:text="@string/home_button_start"
+            android:textAllCaps="false"
+            android:onClick="onButtonStartClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_header"
+            app:layout_constraintVertical_bias="0.25"/>
+
+        <Button
+            android:id="@+id/button_about"
+            android:layout_width="@dimen/defaultButtonWidth"
+            android:layout_height="@dimen/defaultButtonHeight"
+            android:background="@drawable/btn_rounded_analogous"
+            android:text="@string/home_button_about"
+            android:textAllCaps="false"
+            android:onClick="onButtonAboutClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_start"
+            app:layout_constraintVertical_bias="0.2"
+            />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

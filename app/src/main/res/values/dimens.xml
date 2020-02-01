@@ -1,7 +1,15 @@
 <resources>
-    <!--Dimensions of text-->
+    <!--TEXT-->
     <dimen name="headingLarge">48sp</dimen>
+    <dimen name="headingSmall">16sp</dimen>
 
+    <!--BUTTONS-->
     <dimen name="defaultButtonWidth">150sp</dimen>
     <dimen name="defaultButtonHeight">50sp</dimen>
+
+    <!--MARGIN-->
+    <dimen name="marginSmall">5dp</dimen>
+    <dimen name="marginMedium">10dp</dimen>
+    <dimen name="marginMassive">50dp</dimen>
+
 </resources>

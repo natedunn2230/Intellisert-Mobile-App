@@ -3,6 +3,7 @@
     <string name="app_name">Intellisert</string>
 
     <!--HOME SCREEN STRINGS -->
-    <string name="homeButtonStart">Begin</string>
+    <string name="home_button_start">Start</string>
+    <string name="home_button_about">About</string>
 
 </resources>
