@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity implements BaseView {
         // buttons
         buttonStart.setOnClickListener(view -> {
             Log.println(Log.INFO, "user_click", "User clicked START button.");
-            controller.changeView(WifiCredentialsActivity.class);
+            controller.changeView(BluetoothPairActivity.class);
         });
 
         buttonAbout.setOnClickListener(view -> {

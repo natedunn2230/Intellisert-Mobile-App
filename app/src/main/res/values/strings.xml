@@ -7,4 +7,9 @@
     <string name="home_button_about">About</string>
     <string name="title_activity_wifi_credentials">WifiCredentialsActivity</string>
 
+    <!--BLUETOOTH PAIR STRINGS-->
+    <string name="bluetooth_pair_header">Select your Intellisert to enter WiFi Credentials</string>
+    <string name="bluetooth_pair_note">Note: Please enable bluetooth pairing on your phone</string>
+    <string name="bluetooth_pair_device">Device Name Here</string>
+
 </resources>

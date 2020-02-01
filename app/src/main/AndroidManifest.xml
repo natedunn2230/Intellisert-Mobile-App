@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.WifiCredentialsActivity"
+            android:name=".views.BluetoothPairActivity"
             android:label="@string/title_activity_wifi_credentials"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bluetooth_device"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/componentHeightLarge"
+    android:layout_margin="@dimen/marginSmall"
+    android:background="@drawable/btn_rounded_analogous">
+    <TextView
+        android:id="@+id/bluetooth_device_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/headingMedium"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="@string/bluetooth_pair_device"
+        android:textAlignment="center"
+    />
+
+</LinearLayout>
