@@ -64,4 +64,17 @@
 
     </ScrollView>
 
+    <Button
+        android:id="@+id/bluetooth_pair_button_begin"
+        android:background="@drawable/btn_rounded_complement"
+        android:layout_marginTop="@dimen/marginMassive"
+        android:layout_width="@dimen/defaultButtonWidth"
+        android:layout_height="@dimen/defaultButtonHeight"
+        android:text="@string/bluetooth_pair_start"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_note" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

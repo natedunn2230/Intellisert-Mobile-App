@@ -12,10 +12,6 @@ public class HomeController implements Controllable {
         this.view = view;
     }
 
-    @Override
-    public void updateView() {
-
-    }
 
     @Override
     public void changeView(Class toView) {

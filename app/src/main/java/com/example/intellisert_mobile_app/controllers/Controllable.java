@@ -10,12 +10,6 @@ import com.example.intellisert_mobile_app.views.BaseView;
 public interface Controllable {
 
     /**
-     * Updates the view assigned to the controller.
-     */
-    void updateView();
-
-
-    /**
      * Changes to another view/activity of the application.
      * @param toView - class of view to transition to.
      */

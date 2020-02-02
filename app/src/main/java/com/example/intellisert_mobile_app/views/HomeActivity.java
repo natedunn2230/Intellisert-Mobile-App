@@ -23,14 +23,14 @@ public class HomeActivity extends AppCompatActivity implements BaseView {
         // XML Layout File
         setContentView(R.layout.home_activity);
 
-        controller = new HomeController(this);
-
         init();
         bindActions();
     }
 
     @Override
     public void init() {
+        controller = new HomeController(this);
+
         // buttons
         buttonStart = findViewById(R.id.home_button_start);
         buttonAbout = findViewById(R.id.home_button_about);
