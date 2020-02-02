@@ -21,7 +21,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/headingSmall"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_banner" />
 
@@ -33,7 +33,7 @@
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         />
 
@@ -99,7 +99,8 @@
             android:layout_width="@dimen/defaultButtonWidth"
             android:layout_height="@dimen/defaultButtonHeight"
             android:background="@drawable/rounded_analogous"
-            android:text="@string/button_next" />
+            android:text="@string/button_next"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
