@@ -1,6 +1,7 @@
 <resources>
     <!--APPLICATION WIDE STRINGS-->
     <string name="app_name">Intellisert</string>
+    <string name="button_next">Next</string>
 
     <!--HOME SCREEN STRINGS -->
     <string name="home_button_start">Start</string>
@@ -12,5 +13,6 @@
     <string name="bluetooth_pair_note">Please pair device in phone settings before connecting</string>
     <string name="bluetooth_pair_list_header">Paired Devices</string>
     <string name="bluetooth_pair_device">Device Name Here</string>
+    <string name="bluetooth_pair_already_connected">Device already connected to network?"</string>
 
 </resources>

@@ -3,8 +3,8 @@
     android:id="@+id/bluetooth_device"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="@dimen/componentHeightLarge"
-    android:layout_margin="@dimen/marginSmall"
-    android:background="@drawable/rounded_complement">
+    android:layout_margin="@dimen/marginMedium"
+    android:background="@drawable/rounded_primary_dark">
     <TextView
         android:id="@+id/bluetooth_device_name"
         android:layout_width="0dp"
