@@ -4,12 +4,13 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="@dimen/componentHeightLarge"
     android:layout_margin="@dimen/marginSmall"
-    android:background="@drawable/btn_rounded_analogous">
+    android:background="@drawable/rounded_complement">
     <TextView
         android:id="@+id/bluetooth_device_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/headingMedium"
+        android:textColor="@color/white"
         android:layout_weight="1"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="@string/bluetooth_pair_device"

@@ -9,8 +9,8 @@
 
     <!--BLUETOOTH PAIR STRINGS-->
     <string name="bluetooth_pair_header">Select your Intellisert to enter WiFi Credentials</string>
-    <string name="bluetooth_pair_note">Note: Please enable bluetooth pairing on your phone</string>
+    <string name="bluetooth_pair_note">Please pair device in phone settings before connecting</string>
+    <string name="bluetooth_pair_list_header">Paired Devices</string>
     <string name="bluetooth_pair_device">Device Name Here</string>
-    <string name="bluetooth_pair_start">Begin Connection</string>
 
 </resources>

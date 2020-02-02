@@ -5,22 +5,26 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.intellisert_mobile_app.models.BluetoothDevices;
+import com.example.intellisert_mobile_app.models.BluetoothDev;
+import com.example.intellisert_mobile_app.models.BluetoothDevs;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
 
 import java.util.Set;
 
+import static android.util.Log.INFO;
+
 public class BluetoothPairController implements Controllable {
 
     private BluetoothPairActivity view;
-    private BluetoothDevices btDevices;
+    private BluetoothDevs btDevices;
     private BluetoothAdapter btAdapter;
-    private Set<BluetoothDevice> foundDevices;
+
     public static final int REQUEST_ENABLE_BT = 1;
 
     public BluetoothPairController(BluetoothPairActivity view){
         this.view = view;
         this.btAdapter = BluetoothAdapter.getDefaultAdapter();
+        btDevices = new BluetoothDevs();
     }
 
     /**
@@ -31,7 +35,7 @@ public class BluetoothPairController implements Controllable {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             view.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } else {
-            discoverDevices();
+            discoverPairedDevices();
         }
 
     }
@@ -39,7 +43,15 @@ public class BluetoothPairController implements Controllable {
     /**
      * Discovers bluetooth devices that have not been paired
      */
-    public void discoverDevices() {
+    public void discoverPairedDevices() {
+        Set<BluetoothDevice>pairedDevices = btAdapter.getBondedDevices();
+
+        for(BluetoothDevice bd: pairedDevices){
+            BluetoothDev newDevice = new BluetoothDev(bd.getName(), bd.getAddress());
+            Log.println(INFO, "paired_device_found", bd.getName());
+            btDevices.addDevice(new BluetoothDev(bd.getName(), bd.getAddress()));
+            view.addDevice(newDevice.getName());
+        }
         view.showList();
     }
 

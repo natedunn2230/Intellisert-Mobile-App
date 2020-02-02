@@ -3,9 +3,12 @@ package com.example.intellisert_mobile_app.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,8 +18,9 @@ import com.example.intellisert_mobile_app.controllers.BluetoothPairController;
 public class BluetoothPairActivity extends AppCompatActivity implements BaseView {
 
     private BluetoothPairController controller;
-    private Button buttonPair;
     private LinearLayout deviceList;
+    private TextView deviceListHeader;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,27 +28,27 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         setContentView(R.layout.bluetooth_pair_activity);
         init();
         bindActions();
+
+        controller.startBluetooth();
     }
 
     @Override
     public void init() {
         controller = new BluetoothPairController(this);
 
-        // buttons
-        buttonPair = findViewById(R.id.bluetooth_pair_button_begin);
-
         // bluetooth device list
         deviceList = findViewById(R.id.bluetooth_device_list);
         deviceList.setVisibility(View.INVISIBLE);
         deviceList.setEnabled(false);
+        deviceListHeader = findViewById(R.id.bluetooth_pair_list_header);
+        deviceListHeader.setVisibility(View.INVISIBLE);
+        scrollView = findViewById(R.id.bluetooth_device_scroll);
+        scrollView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void bindActions() {
-        // buttons
-        buttonPair.setOnClickListener(v -> {
-            controller.startBluetooth();
-        });
+
     }
 
     @Override
@@ -54,7 +58,7 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         switch(requestCode){
             case BluetoothPairController.REQUEST_ENABLE_BT:
                 if(resultCode == RESULT_OK){
-                    controller.discoverDevices();
+                    controller.discoverPairedDevices();
                 }
                 break;
         }
@@ -66,7 +70,21 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
     public void showList(){
         deviceList.setVisibility(View.VISIBLE);
         deviceList.setEnabled(true);
-        buttonPair.setVisibility(View.INVISIBLE);
-        buttonPair.setEnabled(false);
+        deviceListHeader.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Adds newly discovered bluetooth device to view.
+     * @param name - name of the bluetooth device.
+     */
+    public void addDevice(String name){
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+
+        View btView = inflater.inflate(R.layout.bluetooth_device, deviceList, false);
+        TextView btViewText = btView.findViewById(R.id.bluetooth_device_name);
+        btViewText.setText(name);
+
+        deviceList.addView(btView);
     }
 }
