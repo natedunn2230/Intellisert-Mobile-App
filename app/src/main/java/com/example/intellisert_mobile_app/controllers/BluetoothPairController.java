@@ -49,6 +49,10 @@ public class BluetoothPairController implements Controllable {
         view.showList();
     }
 
+    public void startConnection(String name) {
+        btService.connectToDevice(name);
+    }
+
 
     @Override
     public void changeView(Class toView) {

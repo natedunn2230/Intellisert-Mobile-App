@@ -1,12 +1,11 @@
 package com.example.intellisert_mobile_app.views;
-
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -16,14 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.intellisert_mobile_app.R;
 import com.example.intellisert_mobile_app.controllers.BluetoothPairController;
 
-import static android.util.Log.INFO;
-
 public class BluetoothPairActivity extends AppCompatActivity implements BaseView {
 
     private BluetoothPairController controller;
     private LinearLayout deviceList;
     private TextView deviceListHeader;
     private ScrollView scrollView;
+
+    private final String BLUETOOTH_PAIR_ACTIVITY = "BLUETOOTH_PAIR_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +84,14 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 
         View btView = inflater.inflate(R.layout.bluetooth_device, deviceList, false);
-        TextView btViewText = btView.findViewById(R.id.bluetooth_device_name);
-        btViewText.setText(name);
+        Button btViewBtn = btView.findViewById(R.id.bluetooth_device_name);
+        btViewBtn.setText(name);
 
         // when the bluetooth device is clicked in the listview, change its color for feedback and then
         // dispatch action accordingly to controller
-        btView.setOnClickListener(v -> {
-            Log.println(INFO, "bt_device_clicked", "bt device '" + name + "' clicked");
+        btViewBtn.setOnClickListener(v -> {
+            Log.d(BLUETOOTH_PAIR_ACTIVITY, "bt device '" + name + "' clicked");
+            controller.startConnection(name);
         });
 
 

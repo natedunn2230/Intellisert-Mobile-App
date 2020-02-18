@@ -15,6 +15,8 @@ public class HomeActivity extends AppCompatActivity implements BaseView {
     private HomeController controller;
     private Button buttonStart, buttonAbout;
 
+    private final String HOME_ACTIVITY = "HOME_ACTIVITY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -40,12 +42,12 @@ public class HomeActivity extends AppCompatActivity implements BaseView {
     public void bindActions() {
         // buttons
         buttonStart.setOnClickListener(view -> {
-            Log.println(Log.INFO, "user_click", "User clicked START button.");
+            Log.d(HOME_ACTIVITY, "User clicked START button.");
             controller.changeView(BluetoothPairActivity.class);
         });
 
         buttonAbout.setOnClickListener(view -> {
-            Log.println(Log.INFO, "user_click", "User clicked ABOUT button.");
+            Log.d(HOME_ACTIVITY, "User clicked ABOUT button.");
         });
     }
 }
