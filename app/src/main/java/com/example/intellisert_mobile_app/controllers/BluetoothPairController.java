@@ -5,8 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.intellisert_mobile_app.models.BluetoothDev;
-import com.example.intellisert_mobile_app.models.BluetoothDevs;
+import com.example.intellisert_mobile_app.utils.BluetoothService;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
 
 import java.util.Set;
@@ -16,42 +15,37 @@ import static android.util.Log.INFO;
 public class BluetoothPairController implements Controllable {
 
     private BluetoothPairActivity view;
-    private BluetoothDevs btDevices;
-    private BluetoothAdapter btAdapter;
+    private BluetoothService btService;
 
     public static final int REQUEST_ENABLE_BT = 1;
 
     public BluetoothPairController(BluetoothPairActivity view){
         this.view = view;
-        this.btAdapter = BluetoothAdapter.getDefaultAdapter();
-        btDevices = new BluetoothDevs();
+        this.btService = new BluetoothService();
     }
 
     /**
      * Starts bluetooth pairing process.
      */
     public void startBluetooth() {
-        if (!btAdapter.isEnabled()) {
+        if (!btService.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             view.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } else {
             discoverPairedDevices();
         }
-
     }
 
     /**
      * Discovers bluetooth devices that have not been paired
      */
     public void discoverPairedDevices() {
-        Set<BluetoothDevice>pairedDevices = btAdapter.getBondedDevices();
+        btService.findPairedDevices();
 
-        for(BluetoothDevice bd: pairedDevices){
-            BluetoothDev newDevice = new BluetoothDev(bd.getName(), bd.getAddress());
-            Log.println(INFO, "paired_device_found", bd.getName());
-            btDevices.addDevice(new BluetoothDev(bd.getName(), bd.getAddress()));
-            view.addDevice(newDevice.getName());
+        for(BluetoothDevice device: btService.getDevices()) {
+            view.addDevice(device.getName());
         }
+
         view.showList();
     }
 
