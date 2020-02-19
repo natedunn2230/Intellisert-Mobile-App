@@ -91,7 +91,7 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         // dispatch action accordingly to controller
         btViewBtn.setOnClickListener(v -> {
             Log.d(BLUETOOTH_PAIR_ACTIVITY, "bt device '" + name + "' clicked");
-            controller.startConnection(name);
+            controller.startConnection(name, "This is data from the mobile app");
         });
 
 

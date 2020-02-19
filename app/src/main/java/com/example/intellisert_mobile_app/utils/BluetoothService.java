@@ -9,7 +9,10 @@ import com.example.intellisert_mobile_app.models.BluetoothDevices;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -27,11 +30,9 @@ public class BluetoothService {
 
     private BluetoothSocket btSocket = null;
     private BluetoothDevice selectedDevice = null;
+    private boolean attemptingConnection = false;
 
-    final byte delimiter = 33;
-    int readBufferPosition = 0;
-
-    private final String BT_SERVICE_TAG = "BT_SERVICE_TAG";
+    private final String BT_SERVICE_TAG = "BT_SERVICE";
 
     public BluetoothService() {
         btDevices = new BluetoothDevices();
@@ -68,14 +69,27 @@ public class BluetoothService {
         return btDevices.getDevices();
     }
 
-    public void connectToDevice(String name){
-        selectedDevice = btDevices.getDevice(name);
-        Thread thread = new Thread(new WorkerThread("data!"));
-        thread.start();
+
+    /**
+     * Connects to the specified bluetooth device and sends data to it.
+     * @param name - name of bluetooth device to connect to.
+     * @param data - data to send to the bluetooth device.
+     */
+    public void connectToDevice(String name, String data){
+        if(!attemptingConnection) {
+            attemptingConnection = true;
+            selectedDevice = btDevices.getDevice(name);
+            Thread thread = new Thread(new WorkerThread(data));
+            thread.start();
+        }
     }
 
-
-    private void sendMsg(String msg){
+    /**
+     * Opens a bluetooth connection to the selected bluetooth device and sends a message.
+     * @param msg - message to be sent to bluetooth device.
+     * @return - successful connection and write to bluetooth device.
+     */
+    private boolean sendMsg(String msg){
         UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
         try{
             btSocket = selectedDevice.createRfcommSocketToServiceRecord(uuid);
@@ -86,67 +100,74 @@ public class BluetoothService {
 
             OutputStream btOutputStream = btSocket.getOutputStream();
             btOutputStream.write(msg.getBytes());
+            return true;
 
         } catch(IOException e){
             Log.e(BT_SERVICE_TAG, "error creating and establishing connection with socket: " + e);
+            return false;
         }
     }
 
-
+    /**
+     * Class is responsible for running an asynchronous connection with the desired bluetooth device.
+     */
     final class WorkerThread implements Runnable {
         private String msg;
 
-        public WorkerThread(String msg){
+        WorkerThread(String msg){
             this.msg = msg;
         }
 
         @Override
         public void run() {
-            sendMsg(msg);
+            // if message is sent successfully
+            if (sendMsg(msg)) {
+                while (!Thread.currentThread().isInterrupted()) {
+                    int bytesAvailable;
+                    boolean workDone = false;
+                    // read from input stream from the bluetooth socket
+                    try {
+                        final InputStream btInputStream;
+                        btInputStream = btSocket.getInputStream();
+                        bytesAvailable = btInputStream.available();
+                        String data;
 
-            while(!Thread.currentThread().isInterrupted()){
-                int bytesAvailable;
-                boolean workDone = false;
+                        // if there is data to read
+                        if (bytesAvailable > 0) {
+                            int bytesLeft = bytesAvailable;
+                            final int bufferSize = 1024;
 
-                try {
-                    final InputStream btInputStream;
-                    btInputStream = btSocket.getInputStream();
-                    bytesAvailable = btInputStream.available();
+                            Log.d(BT_SERVICE_TAG, "bytes available");
+                            final char[] buffer = new char[bufferSize];
+                            final StringBuilder sBuilder = new StringBuilder();
+                            Reader in = new InputStreamReader(btInputStream, StandardCharsets.UTF_8);
 
-                    if(bytesAvailable > 0){
-                        byte[] packetBytes = new byte[bytesAvailable];
-                        Log.d(BT_SERVICE_TAG,"bytes available");
-                        byte[] readBuffer = new byte[1024];
-                        btInputStream.read(packetBytes);
+                            int chunk;
 
-                        for(int i=0;i<bytesAvailable;i++) {
-                            byte b = packetBytes[i];
-                            if(b == delimiter){
-                                byte[] encodedBytes = new byte[readBufferPosition];
-                                System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
-                                final String data = new String(encodedBytes, "US-ASCII");
-                                readBufferPosition = 0;
-                                workDone = true;
-                                Log.d(BT_SERVICE_TAG, data);
-                                break;
+                            // read message from stream, in chunks
+                            while (bytesLeft > 0) {
+                                chunk = in.read(buffer, 0, buffer.length);
+                                sBuilder.append(buffer, 0, chunk);
+                                bytesLeft -= bufferSize;
                             }
-                            else
-                            {
-                                readBuffer[readBufferPosition++] = b;
-                            }
-                        }
+                            data = sBuilder.toString();
 
-                        if (workDone){
-
+                            Log.d(BT_SERVICE_TAG, "data received: " + data);
                             btSocket.close();
                             break;
                         }
+
+                    } catch (IOException e) {
+                        Log.e(BT_SERVICE_TAG, "error reading from socket: " + e);
                     }
 
-                } catch(IOException e) {
-                    Log.e(BT_SERVICE_TAG, "error reading from socket: " + e);
+                    Log.d(BT_SERVICE_TAG, "in thread loop");
                 }
+
+                Log.d(BT_SERVICE_TAG, "thread terminated");
             }
+
+            attemptingConnection = false;
         }
     }
 
