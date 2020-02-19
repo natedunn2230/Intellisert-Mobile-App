@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static android.util.Log.INFO;
 
 /**
  * Utility used for establishing a bluetooth connection between the mobile device and a bluetooth
@@ -55,7 +54,7 @@ public class BluetoothService {
         if(btAdapter.isEnabled()){
             Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
             for(BluetoothDevice bd: pairedDevices){
-                Log.println(INFO, "paired_device_found", bd.getName());
+                Log.d(BT_SERVICE_TAG, "paired_device_found:" + bd.getName());
                 btDevices.addDevice(bd);
             }
         }
@@ -120,6 +119,8 @@ public class BluetoothService {
 
         @Override
         public void run() {
+            long start = System.currentTimeMillis();
+
             // if message is sent successfully
             if (sendMsg(msg)) {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -162,6 +163,11 @@ public class BluetoothService {
                     }
 
                     Log.d(BT_SERVICE_TAG, "in thread loop");
+
+                    // break out of loop if stuff is taking too long
+                    if(System.currentTimeMillis() - start > 5000){
+                        break;
+                    }
                 }
 
                 Log.d(BT_SERVICE_TAG, "thread terminated");
