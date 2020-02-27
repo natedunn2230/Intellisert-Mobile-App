@@ -30,12 +30,18 @@ public class BluetoothService {
     private BluetoothSocket btSocket = null;
     private BluetoothDevice selectedDevice = null;
     private boolean attemptingConnection = false;
+    private boolean supported = true;
 
     private final String BT_SERVICE_TAG = "BT_SERVICE";
 
     public BluetoothService() {
         btDevices = new BluetoothDevices();
         btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if(btAdapter == null){
+            Log.e(BT_SERVICE_TAG, "This device does not support Bluetooth");
+            supported = false;
+        }
     }
 
     /**
@@ -43,7 +49,18 @@ public class BluetoothService {
      * @return - boolean depicting whether the bluetooth adapter is enabled.
      */
     public boolean isEnabled(){
-        return btAdapter.isEnabled();
+        if(supported)
+            return btAdapter.isEnabled();
+
+        return false;
+    }
+
+    /**
+     * Returns boolean depicting if the current device supports bluetooth or not.
+     * @return - boolean depicting if device supports bluetooth
+     */
+    public boolean isSupported(){
+        return supported;
     }
 
     /**

@@ -18,6 +18,7 @@ public class BluetoothPairController implements Controllable {
     private BluetoothService btService;
 
     public static final int REQUEST_ENABLE_BT = 1;
+    public final String BT_PAIR_CONTROLLER = "BT_PAIR_CONTROLLER";
 
     public BluetoothPairController(BluetoothPairActivity view){
         this.view = view;
@@ -28,11 +29,13 @@ public class BluetoothPairController implements Controllable {
      * Starts bluetooth pairing process.
      */
     public void startBluetooth() {
-        if (!btService.isEnabled()) {
+        if (!btService.isEnabled() && btService.isSupported()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             view.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        } else {
+        } else if(btService.isSupported()) {
             discoverPairedDevices();
+        } else {
+            Log.e(BT_PAIR_CONTROLLER, "Unable to start bluetooth");
         }
     }
 
@@ -40,12 +43,15 @@ public class BluetoothPairController implements Controllable {
      * Discovers bluetooth devices that have not been paired
      */
     public void discoverPairedDevices() {
-        btService.findPairedDevices();
+        if(btService.isSupported()) {
+            btService.findPairedDevices();
 
-        for(BluetoothDevice device: btService.getDevices()) {
-            view.addDevice(device.getName());
+            for (BluetoothDevice device : btService.getDevices()) {
+                view.addDevice(device.getName());
+            }
+        } else {
+            Log.e(BT_PAIR_CONTROLLER, "Unable to discover devices");
         }
-
         view.showList();
     }
 
