@@ -14,5 +14,6 @@
     <string name="bluetooth_pair_list_header">Paired Devices</string>
     <string name="bluetooth_pair_device">Device Name Here</string>
     <string name="bluetooth_pair_already_connected">Device already connected to network?"</string>
-
+    <string name="bluetooth_pair_cred_pwsd_hint">Password</string>
+    <string name="bluetooth_pair_cred_name_hint">Name</string>
 </resources>

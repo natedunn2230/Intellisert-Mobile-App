@@ -88,13 +88,16 @@ public class BluetoothService {
 
     /**
      * Connects to the specified bluetooth device and sends data to it.
-     * @param name - name of bluetooth device to connect to.
-     * @param data - data to send to the bluetooth device.
+     * @param data - data to send to the selected bluetooth device.
      */
-    public void connectToDevice(String name, String data){
+    public void connectToDevice(String data){
+        if(selectedDevice == null) {
+            Log.e(BT_SERVICE_TAG, "no device has been selected. Cannot start connection");
+            return;
+        }
+
         if(!attemptingConnection) {
             attemptingConnection = true;
-            selectedDevice = btDevices.getDevice(name);
             Thread thread = new Thread(new WorkerThread(data));
             thread.start();
         }
@@ -124,11 +127,17 @@ public class BluetoothService {
         }
     }
 
+    public void setSelectedDevice(String name) {
+        selectedDevice = btDevices.getDevice(name);
+    }
+
     /**
      * Class is responsible for running an asynchronous connection with the desired bluetooth device.
      */
     final class WorkerThread implements Runnable {
+
         private String msg;
+        private final int THREAD_TIMEOUT = 30000;
 
         WorkerThread(String msg){
             this.msg = msg;
@@ -142,7 +151,6 @@ public class BluetoothService {
             if (sendMsg(msg)) {
                 while (!Thread.currentThread().isInterrupted()) {
                     int bytesAvailable;
-                    boolean workDone = false;
                     // read from input stream from the bluetooth socket
                     try {
                         final InputStream btInputStream;
@@ -182,7 +190,7 @@ public class BluetoothService {
                     Log.d(BT_SERVICE_TAG, "in thread loop");
 
                     // break out of loop if stuff is taking too long
-                    if(System.currentTimeMillis() - start > 5000){
+                    if(System.currentTimeMillis() - start > THREAD_TIMEOUT){
                         break;
                     }
                 }
@@ -191,6 +199,7 @@ public class BluetoothService {
             }
 
             attemptingConnection = false;
+            selectedDevice = null;
         }
     }
 

@@ -19,5 +19,7 @@
     <dimen name="componentHeightSmall">25dp</dimen>
     <dimen name="componentHeightMedium">50dp</dimen>
     <dimen name="componentHeightLarge">75dp</dimen>
-
+    <dimen name="componentWidthSmall">50dp</dimen>
+    <dimen name="componentWidthMedium">100dp</dimen>
+    <dimen name="componentWidthLarge">250dp</dimen>
 </resources>

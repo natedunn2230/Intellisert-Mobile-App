@@ -8,17 +8,14 @@ import android.util.Log;
 import com.example.intellisert_mobile_app.utils.BluetoothService;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
 
-import java.util.Set;
-
-import static android.util.Log.INFO;
-
 public class BluetoothPairController implements Controllable {
 
     private BluetoothPairActivity view;
     private BluetoothService btService;
 
     public static final int REQUEST_ENABLE_BT = 1;
-    public final String BT_PAIR_CONTROLLER = "BT_PAIR_CONTROLLER";
+
+    private final String BT_PAIR_CONTROLLER = "BT_PAIR_CONTROLLER";
 
     public BluetoothPairController(BluetoothPairActivity view){
         this.view = view;
@@ -55,13 +52,15 @@ public class BluetoothPairController implements Controllable {
         view.showList();
     }
 
-    public void startConnection(String name, String data) {
-        btService.connectToDevice(name, data);
+    public void startConnection(String data) {
+        btService.connectToDevice(data);
     }
 
+    public void setSelectedDevice(String name) {
+        btService.setSelectedDevice(name);
+    }
 
     @Override
-    public void changeView(Class toView) {
+    public void changeView(Class toView) { }
 
-    }
 }

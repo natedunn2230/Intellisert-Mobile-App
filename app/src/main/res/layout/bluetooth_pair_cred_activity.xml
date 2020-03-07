@@ -1,0 +1,41 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/marginMedium"
+    >
+
+    <EditText
+        android:id="@+id/bluetooth_pair_cred_name"
+        android:layout_width="@dimen/componentWidthLarge"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginLarge"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:hint="@string/bluetooth_pair_cred_name_hint"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <EditText
+        android:id="@+id/bluetooth_pair_cred_pswd"
+        android:layout_width="@dimen/componentWidthLarge"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:hint="@string/bluetooth_pair_cred_pwsd_hint"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_cred_name"
+    />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
