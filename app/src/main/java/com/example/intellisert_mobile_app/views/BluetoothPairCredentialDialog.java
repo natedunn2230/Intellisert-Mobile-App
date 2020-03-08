@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.intellisert_mobile_app.R;
 
+/**
+ * Dialog Fragment for entering network credentials.
+ */
 public class BluetoothPairCredentialDialog extends AppCompatDialogFragment {
 
     private EditText nameField;
@@ -37,14 +40,18 @@ public class BluetoothPairCredentialDialog extends AppCompatDialogFragment {
         builder.setView(view)
                 .setTitle("Network Credentials")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    // we dont want to do anything if cancel is selected
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {}
                 })
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    // send network information to BluetoothPairActivity by way of listener
+                    // callback
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String password = passwdField.getText().toString();
                         String name = nameField.getText().toString();
+
                         listener.passCredentials(name, password);
                     }
                 });
@@ -54,6 +61,8 @@ public class BluetoothPairCredentialDialog extends AppCompatDialogFragment {
 
     @Override
     public void onAttach(Context context){
+        // attaches the fragments context to the bluetooth pair activities context so
+        // a callback can be made
         super.onAttach(context);
 
         try {
@@ -63,6 +72,10 @@ public class BluetoothPairCredentialDialog extends AppCompatDialogFragment {
         }
     }
 
+    /**
+     * Used as a callback function in BluetoothPairActivity to
+     * receive network credentials from this dialog fragment.
+     */
     public interface BluetoothPairCredentialListener {
         void passCredentials(String networkName, String password);
     }

@@ -52,10 +52,35 @@ public class BluetoothPairController implements Controllable {
         view.showList();
     }
 
+    /**
+     * Start connection with the Bluetooth device.
+     * @param data - data to be passed to Bluetooth Device.
+     */
     public void startConnection(String data) {
-        btService.connectToDevice(data);
+        btService.connectToDevice(data, resultSetter);
+        view.progressVisible(true);
     }
 
+    /**
+     * Callback object to receive result from Bluetooth Thread
+     */
+    private ThreadResultSetter resultSetter = new ThreadResultSetter<Boolean>() {
+        @Override
+        public void setResult(Boolean result) {
+            view.progressVisible(false);
+            Log.d(BT_PAIR_CONTROLLER, "Result from thread result threader: " + result);
+
+            if(result)
+                view.showToast("Device connected to network");
+            else
+                view.showToast("Could not connect device to network");
+        }
+    };
+
+    /**
+     * Set Bluetooth device to be connected to.
+     * @param name - name of device to be connected to.
+     */
     public void setSelectedDevice(String name) {
         btService.setSelectedDevice(name);
     }

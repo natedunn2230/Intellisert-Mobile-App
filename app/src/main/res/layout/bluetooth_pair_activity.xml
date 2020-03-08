@@ -31,11 +31,10 @@
         android:layout_height="wrap_content"
         android:text="@string/bluetooth_pair_note"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_header" />
 
     <TextView
         android:id="@+id/bluetooth_pair_list_header"
@@ -43,56 +42,56 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/marginMedium"
         android:layout_marginTop="@dimen/marginLarge"
-        android:textSize="@dimen/headingMedium"
         android:text="@string/bluetooth_pair_list_header"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/headingMedium"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_note" />
 
     <ScrollView
         android:id="@+id/bluetooth_device_scroll"
-        android:layout_marginTop="@dimen/marginSmall"
-        android:layout_marginLeft="@dimen/marginMedium"
-        android:layout_marginRight="@dimen/marginMedium"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
+        android:layout_marginLeft="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginSmall"
+        android:layout_marginRight="@dimen/marginMedium"
         android:background="@drawable/rounded_analogous"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_list_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_list_header">
+
         <LinearLayout
             android:id="@+id/bluetooth_device_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
         </LinearLayout>
 
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/bluetooth_pair_btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="@dimen/marginLarge"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_device_scroll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_device_scroll"
         app:layout_constraintVertical_bias="0.3">
+
         <TextView
             android:id="@+id/bluetooth_pair_next_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/marginMedium"
-            android:textColor="@color/colorPrimaryDark"
             android:text="@string/bluetooth_pair_already_connected"
-         />
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/bluetooth_pair_button_next"
@@ -100,7 +99,20 @@
             android:layout_height="@dimen/defaultButtonHeight"
             android:background="@drawable/rounded_analogous"
             android:text="@string/button_next"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/bluetooth_pair_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:minWidth="@dimen/componentWidthLarge"
+        android:minHeight="@dimen/componentHeightLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

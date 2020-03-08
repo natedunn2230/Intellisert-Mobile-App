@@ -5,7 +5,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
+import com.example.intellisert_mobile_app.controllers.BluetoothPairController;
+import com.example.intellisert_mobile_app.controllers.ThreadResultSetter;
 import com.example.intellisert_mobile_app.models.BluetoothDevices;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,7 +95,7 @@ public class BluetoothService {
      * Connects to the specified bluetooth device and sends data to it.
      * @param data - data to send to the selected bluetooth device.
      */
-    public void connectToDevice(String data){
+    public void connectToDevice(String data, ThreadResultSetter setter){
         if(selectedDevice == null) {
             Log.e(BT_SERVICE_TAG, "no device has been selected. Cannot start connection");
             return;
@@ -98,7 +103,7 @@ public class BluetoothService {
 
         if(!attemptingConnection) {
             attemptingConnection = true;
-            Thread thread = new Thread(new WorkerThread(data));
+            Thread thread = new Thread(new WorkerThread(data, setter));
             thread.start();
         }
     }
@@ -127,6 +132,10 @@ public class BluetoothService {
         }
     }
 
+    /**
+     * Set the device that will be used to try to connect to.
+     * @param name - Name of the device to connect to.
+     */
     public void setSelectedDevice(String name) {
         selectedDevice = btDevices.getDevice(name);
     }
@@ -138,9 +147,12 @@ public class BluetoothService {
 
         private String msg;
         private final int THREAD_TIMEOUT = 30000;
+        private ThreadResultSetter<Boolean> setter;
+        private boolean success;
 
-        WorkerThread(String msg){
+        WorkerThread(String msg, ThreadResultSetter setter){
             this.msg = msg;
+            this.setter = setter;
         }
 
         @Override
@@ -179,12 +191,20 @@ public class BluetoothService {
                             data = sBuilder.toString();
 
                             Log.d(BT_SERVICE_TAG, "data received: " + data);
+
+                            // parse response and notify controller if device was successfully
+                            // connected or not
+                            JSONObject response = new JSONObject(data);
+                            success = response.getBoolean("success");
+
                             btSocket.close();
                             break;
                         }
 
                     } catch (IOException e) {
                         Log.e(BT_SERVICE_TAG, "error reading from socket: " + e);
+                    } catch (JSONException e) {
+                        Log.e(BT_SERVICE_TAG, "JSON parsing error: " + e);
                     }
 
                     Log.d(BT_SERVICE_TAG, "in thread loop");
@@ -200,8 +220,9 @@ public class BluetoothService {
 
             attemptingConnection = false;
             selectedDevice = null;
+
+            setter.setResult(success);
         }
     }
-
 }
 

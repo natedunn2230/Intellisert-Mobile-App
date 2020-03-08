@@ -1,5 +1,4 @@
 package com.example.intellisert_mobile_app.views;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +8,10 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
     private LinearLayout deviceList;
     private TextView deviceListHeader;
     private ScrollView scrollView;
+    private ProgressBar progressBar;
 
     private final String BLUETOOTH_PAIR_ACTIVITY = "BLUETOOTH_PAIR_ACTIVITY";
 
@@ -47,8 +49,12 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         deviceList.setEnabled(false);
         deviceListHeader = findViewById(R.id.bluetooth_pair_list_header);
         deviceListHeader.setVisibility(View.INVISIBLE);
+
         scrollView = findViewById(R.id.bluetooth_device_scroll);
         scrollView.setVisibility(View.INVISIBLE);
+
+        progressBar = findViewById(R.id.bluetooth_pair_progress);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -77,6 +83,30 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         deviceList.setEnabled(true);
         deviceListHeader.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Display a toast.
+     * @param msg - Message to be displayed
+     */
+    public void showToast(String msg) {
+        Context currentContext = this;
+
+        // Toast must be created on UI thread.
+        Runnable toastAction = () -> { Toast.makeText(currentContext, msg, Toast.LENGTH_LONG).show(); };
+
+        runOnUiThread(toastAction);
+    }
+
+    /**
+     * Set the visibility of the progress circle.
+     * @param visible - boolean depicting whether or not the progress circle should be visible.
+     */
+    public void progressVisible(boolean visible){
+        if(visible)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -109,9 +139,13 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
 
         String message = String.format("{\"ssid\":\"%s\", \"key\": \"%s\"}", networkName, password);
 
+        // use the information passed back from the network credential dialog to attempt connection with device
         controller.startConnection(message);
     }
 
+    /**
+     * Opens the dialog fragment for user to enter network credentials.
+     */
     private void openCredentialDialog(){
         BluetoothPairCredentialDialog credentialDialog = new BluetoothPairCredentialDialog();
         credentialDialog.show(getSupportFragmentManager(), "credential dialog");
