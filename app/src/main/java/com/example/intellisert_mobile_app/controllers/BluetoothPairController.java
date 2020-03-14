@@ -86,6 +86,8 @@ public class BluetoothPairController implements Controllable {
     }
 
     @Override
-    public void changeView(Class toView) { }
-
+    public void changeView(Class toView) {
+        Intent intent = new Intent(view, toView);
+        view.startActivity(intent);
+    }
 }

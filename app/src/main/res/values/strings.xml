@@ -16,4 +16,8 @@
     <string name="bluetooth_pair_already_connected">Device already connected to network?"</string>
     <string name="bluetooth_pair_cred_pwsd_hint">Password</string>
     <string name="bluetooth_pair_cred_name_hint">Name</string>
+
+    <!--NETWORK DEVICES STRINGS-->
+    <string name="network_devices_header">Select your Intellisert Device</string>
+    <string name="network_devices_note">Your Device </string>
 </resources>
