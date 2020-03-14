@@ -7,15 +7,14 @@
         android:id="@+id/bluetooth_device_name"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_margin="@dimen/marginMedium"
+        android:layout_margin="@dimen/marginSmall"
         android:textSize="@dimen/headingMedium"
         android:textAllCaps="false"
-        android:background="@drawable/rounded_analogous"
         android:textColor="@color/white"
         android:layout_weight="1"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="@string/bluetooth_pair_device"
         android:textAlignment="center"
-        />
+    />
 
 </LinearLayout>
