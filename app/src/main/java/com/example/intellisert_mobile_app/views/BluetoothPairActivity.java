@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -141,6 +142,29 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
 
 
         deviceList.addView(btView);
+    }
+
+    /**
+     * Disables UI interactivity
+     */
+    public void disableUI() {
+        Runnable disableAction = () -> {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        };
+
+        runOnUiThread(disableAction);
+    }
+
+    /**
+     * Enables UI interactivity
+     */
+    public void enableUI() {
+        Runnable enableAction = () -> {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        };
+
+        runOnUiThread(enableAction);
     }
 
     @Override

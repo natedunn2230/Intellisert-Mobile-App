@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.intellisert_mobile_app.utils.BluetoothService;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
+import com.example.intellisert_mobile_app.views.NetworkDevicesActivity;
 
 public class BluetoothPairController implements Controllable {
 
@@ -59,6 +60,7 @@ public class BluetoothPairController implements Controllable {
     public void startConnection(String data) {
         btService.connectToDevice(data, resultSetter);
         view.progressVisible(true);
+        view.disableUI();
     }
 
     /**
@@ -70,10 +72,15 @@ public class BluetoothPairController implements Controllable {
             view.progressVisible(false);
             Log.d(BT_PAIR_CONTROLLER, "Result from thread result threader: " + result);
 
-            if(result)
+            if(result) {
                 view.showToast("Device connected to network");
-            else
+                changeView(NetworkDevicesActivity.class);
+            }
+            else {
                 view.showToast("Could not connect device to network");
+            }
+
+            view.enableUI();
         }
     };
 
