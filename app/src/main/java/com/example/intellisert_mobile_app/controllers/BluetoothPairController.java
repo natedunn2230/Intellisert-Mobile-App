@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.example.intellisert_mobile_app.utils.BluetoothService;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
-import com.example.intellisert_mobile_app.views.NetworkDevicesActivity;
 
 public class BluetoothPairController implements Controllable {
 
@@ -74,7 +73,6 @@ public class BluetoothPairController implements Controllable {
 
             if(result) {
                 view.showToast("Device connected to network");
-                changeView(NetworkDevicesActivity.class);
             }
             else {
                 view.showToast("Could not connect device to network");

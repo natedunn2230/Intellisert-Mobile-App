@@ -66,7 +66,6 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
     public void bindActions() {
         btnNext.setOnClickListener( v -> {
             Log.d(BLUETOOTH_PAIR_ACTIVITY, "User clicked Next Button");
-            controller.changeView(NetworkDevicesActivity.class);
         });
     }
 
