@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-import com.example.intellisert_mobile_app.controllers.BluetoothPairController;
 import com.example.intellisert_mobile_app.controllers.ThreadResultSetter;
 import com.example.intellisert_mobile_app.models.BluetoothDevices;
 
@@ -148,7 +147,10 @@ public class BluetoothService {
         private String msg;
         private final int THREAD_TIMEOUT = 30000;
         private ThreadResultSetter<Boolean> setter;
+
+        // data to be received from bluetooth device
         private boolean success;
+        private String deviceIP;
 
         WorkerThread(String msg, ThreadResultSetter setter){
             this.msg = msg;
@@ -196,6 +198,12 @@ public class BluetoothService {
                             // connected or not
                             JSONObject response = new JSONObject(data);
                             success = response.getBoolean("success");
+
+                            // retrieve device's IP configuration / test is successful
+                            if(success){
+                                deviceIP = response.getString("device_ip");
+                                Log.d(BT_SERVICE_TAG, "got device '" + selectedDevice.getName() + "' IP address: " + deviceIP);
+                            }
 
                             btSocket.close();
                             break;

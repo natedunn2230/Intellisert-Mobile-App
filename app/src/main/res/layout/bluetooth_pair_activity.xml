@@ -30,17 +30,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bluetooth_pair_note"
+        android:textStyle="italic"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_header" />
 
+
+    <LinearLayout
+        android:id="@+id/bluetooth_directions_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/marginMassive"
+        android:layout_marginEnd="@dimen/marginMassive"
+        android:layout_marginTop="@dimen/marginMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_note"
+        app:layout_constraintVertical_bias="0.3">
+
+        <TextView
+            android:id="@+id/bluetooth_pair_directions_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginMedium"
+            android:background="@drawable/rounded_primary_dark"
+            android:padding="@dimen/marginSmall"
+            android:text="@string/bluetooth_pair_directions_top"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/bluetooth_pair_directions_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="@dimen/marginSmall"
+            android:background="@drawable/rounded_primary_dark"
+            android:text="@string/bluetooth_pair_directions_bottom"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/bluetooth_pair_list_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginMedium"
         android:layout_marginTop="@dimen/marginLarge"
         android:text="@string/bluetooth_pair_list_header"
         android:textColor="@color/colorPrimaryDark"
@@ -49,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_pair_note" />
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_directions_layout" />
 
     <ScrollView
         android:id="@+id/bluetooth_device_scroll"
@@ -71,36 +109,6 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bluetooth_pair_btn_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/marginLarge"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bluetooth_device_scroll"
-        app:layout_constraintVertical_bias="0.3">
-
-        <TextView
-            android:id="@+id/bluetooth_pair_next_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginMedium"
-            android:text="@string/bluetooth_pair_already_connected"
-            android:textColor="@color/colorPrimaryDark" />
-
-        <Button
-            android:id="@+id/bluetooth_pair_button_next"
-            android:layout_width="@dimen/defaultButtonWidth"
-            android:layout_height="@dimen/defaultButtonHeight"
-            android:background="@drawable/rounded_analogous"
-            android:text="@string/button_next"
-            android:textAllCaps="false" />
-    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/bluetooth_pair_progress"

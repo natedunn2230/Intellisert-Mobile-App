@@ -9,11 +9,12 @@
     <string name="title_activity_wifi_credentials">WifiCredentialsActivity</string>
 
     <!--BLUETOOTH PAIR STRINGS-->
-    <string name="bluetooth_pair_header">Select your Intellisert to enter WiFi Credentials</string>
-    <string name="bluetooth_pair_note">Please pair device in phone settings before connecting</string>
+    <string name="bluetooth_pair_header">Select your Intellisert to connect</string>
+    <string name="bluetooth_pair_note">Please pair device using your phone\'s settings</string>
     <string name="bluetooth_pair_list_header">Paired Devices</string>
     <string name="bluetooth_pair_device">Device Name Here</string>
-    <string name="bluetooth_pair_already_connected">Device already connected to network?"</string>
+    <string name="bluetooth_pair_directions_top">TAP device name to quick connect if already connected to Wifi network</string>
+    <string name="bluetooth_pair_directions_bottom">HOLD device name to enter credentials if not connected to Wifi network</string>
     <string name="bluetooth_pair_cred_pwsd_hint">Password</string>
     <string name="bluetooth_pair_cred_name_hint">Name</string>
 

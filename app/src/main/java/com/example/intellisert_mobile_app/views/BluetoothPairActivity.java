@@ -23,7 +23,6 @@ import com.example.intellisert_mobile_app.views.BluetoothPairCredentialDialog.Bl
 
 public class BluetoothPairActivity extends AppCompatActivity implements BaseView, BluetoothPairCredentialListener {
 
-    private Button btnNext;
     private BluetoothPairController controller;
     private LinearLayout deviceList;
     private TextView deviceListHeader;
@@ -58,16 +57,10 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
 
         progressBar = findViewById(R.id.bluetooth_pair_progress);
         progressBar.setVisibility(View.INVISIBLE);
-
-        btnNext = findViewById(R.id.bluetooth_pair_button_next);
     }
 
     @Override
-    public void bindActions() {
-        btnNext.setOnClickListener( v -> {
-            Log.d(BLUETOOTH_PAIR_ACTIVITY, "User clicked Next Button");
-        });
-    }
+    public void bindActions() { }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -130,13 +123,19 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
         Drawable btnBackground = getDrawable(R.drawable.rounded_primary_dark);
         btViewBtn.setBackground(btnBackground);
 
-        // when the bluetooth device is clicked in the listview, change its color for feedback and then
-        // dispatch action accordingly to controller
+        // quick connect for user, by issuing a test connection on the device
         btViewBtn.setOnClickListener(v -> {
             Log.d(BLUETOOTH_PAIR_ACTIVITY, "bt device '" + name + "' clicked");
             controller.setSelectedDevice(name);
-            //controller.startConnection(name, "{\"ssid\": \"3Guys1Router\", \"key\": \"raiderup2230\"}");
+            controller.startConnection("\"payload\": {}", true);
+        });
+
+        // configuration of device's network
+        btViewBtn.setOnLongClickListener(v -> {
+            Log.d(BLUETOOTH_PAIR_ACTIVITY, "bt device '" + name + "'long clicked");
+            controller.setSelectedDevice(name);
             openCredentialDialog();
+            return true;
         });
 
 
@@ -170,16 +169,16 @@ public class BluetoothPairActivity extends AppCompatActivity implements BaseView
     public void passCredentials(String networkName, String password) {
         Log.d(BLUETOOTH_PAIR_ACTIVITY, "received network: " + networkName + " and its password");
 
-        String message = String.format("{\"ssid\":\"%s\", \"key\": \"%s\"}", networkName, password);
+        String message = String.format("\"payload\": {\"ssid\":\"%s\", \"key\": \"%s\"}", networkName, password);
 
         // use the information passed back from the network credential dialog to attempt connection with device
-        controller.startConnection(message);
+        controller.startConnection(message, false);
     }
 
     /**
      * Opens the dialog fragment for user to enter network credentials.
      */
-    private void openCredentialDialog(){
+    public void openCredentialDialog(){
         BluetoothPairCredentialDialog credentialDialog = new BluetoothPairCredentialDialog();
         credentialDialog.show(getSupportFragmentManager(), "credential dialog");
     }

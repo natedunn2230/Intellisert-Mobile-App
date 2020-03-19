@@ -55,9 +55,13 @@ public class BluetoothPairController implements Controllable {
     /**
      * Start connection with the Bluetooth device.
      * @param data - data to be passed to Bluetooth Device.
+     * @param test - test for Bluetooth Device having existing network connectivity
      */
-    public void startConnection(String data) {
-        btService.connectToDevice(data, resultSetter);
+    public void startConnection(String data, boolean test) {
+        String msgType = test ? "test" : "configure";
+        String msg = String.format("{\"type\": \"%s\", %s}", msgType, data);
+
+        btService.connectToDevice(msg, resultSetter);
         view.progressVisible(true);
         view.disableUI();
     }
