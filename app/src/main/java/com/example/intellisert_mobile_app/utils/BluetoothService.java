@@ -94,7 +94,7 @@ public class BluetoothService {
      * Connects to the specified bluetooth device and sends data to it.
      * @param data - data to send to the selected bluetooth device.
      */
-    public void connectToDevice(String data, ThreadResultSetter setter){
+    public void connectToDevice(String data, ThreadResultSetter<Boolean> resultSetter, ThreadResultSetter<String> ipSetter){
         if(selectedDevice == null) {
             Log.e(BT_SERVICE_TAG, "no device has been selected. Cannot start connection");
             return;
@@ -102,7 +102,7 @@ public class BluetoothService {
 
         if(!attemptingConnection) {
             attemptingConnection = true;
-            Thread thread = new Thread(new WorkerThread(data, setter));
+            Thread thread = new Thread(new WorkerThread(data, resultSetter, ipSetter));
             thread.start();
         }
     }
@@ -146,15 +146,17 @@ public class BluetoothService {
 
         private String msg;
         private final int THREAD_TIMEOUT = 30000;
-        private ThreadResultSetter<Boolean> setter;
+        private ThreadResultSetter<Boolean> resultSetter;
+        private ThreadResultSetter<String> ipSetter;
 
         // data to be received from bluetooth device
         private boolean success;
-        private String deviceIP;
+        private String deviceIP = null;
 
-        WorkerThread(String msg, ThreadResultSetter setter){
+        WorkerThread(String msg, ThreadResultSetter<Boolean> resultSetter, ThreadResultSetter<String> ipSetter){
             this.msg = msg;
-            this.setter = setter;
+            this.resultSetter = resultSetter;
+            this.ipSetter = ipSetter;
         }
 
         @Override
@@ -229,7 +231,8 @@ public class BluetoothService {
             attemptingConnection = false;
             selectedDevice = null;
 
-            setter.setResult(success);
+            resultSetter.setResult(success);
+            ipSetter.setResult(deviceIP);
         }
     }
 }

@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.intellisert_mobile_app.utils.BluetoothService;
+import com.example.intellisert_mobile_app.utils.NetworkService;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
+
+import java.io.IOException;
 
 public class BluetoothPairController implements Controllable {
 
     private BluetoothPairActivity view;
     private BluetoothService btService;
+    private NetworkService networkService;
 
     public static final int REQUEST_ENABLE_BT = 1;
 
@@ -61,7 +65,7 @@ public class BluetoothPairController implements Controllable {
         String msgType = test ? "test" : "configure";
         String msg = String.format("{\"type\": \"%s\", %s}", msgType, data);
 
-        btService.connectToDevice(msg, resultSetter);
+        btService.connectToDevice(msg, resultSetter, deviceIPSetter);
         view.progressVisible(true);
         view.disableUI();
     }
@@ -73,7 +77,7 @@ public class BluetoothPairController implements Controllable {
         @Override
         public void setResult(Boolean result) {
             view.progressVisible(false);
-            Log.d(BT_PAIR_CONTROLLER, "Result from thread result threader: " + result);
+            Log.d(BT_PAIR_CONTROLLER, "Result from thread result setter: " + result);
 
             if(result) {
                 view.showToast("Device connected to network");
@@ -83,6 +87,29 @@ public class BluetoothPairController implements Controllable {
             }
 
             view.enableUI();
+        }
+    };
+
+
+    /**
+     * Callback object to receive device IP from bluetooth service
+     */
+    private ThreadResultSetter deviceIPSetter = new ThreadResultSetter<String>() {
+        @Override
+        public void setResult(String ip) {
+
+            if (ip != null) {
+                Log.d(BT_PAIR_CONTROLLER, "Result from thread Device IP setter: " + ip);
+                NetworkService nwService = NetworkService.getInstance();
+                nwService.setDeviceAddress(ip);
+                try {
+                    nwService.get("/");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e(BT_PAIR_CONTROLLER, "Device IP is null");
+            }
         }
     };
 
