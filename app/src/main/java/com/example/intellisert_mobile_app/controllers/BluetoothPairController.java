@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.intellisert_mobile_app.utils.BluetoothService;
 import com.example.intellisert_mobile_app.utils.NetworkService;
+import com.example.intellisert_mobile_app.views.ActionActivity;
 import com.example.intellisert_mobile_app.views.BluetoothPairActivity;
 
 import java.io.IOException;
@@ -81,8 +82,8 @@ public class BluetoothPairController implements Controllable {
 
             if(result) {
                 view.showToast("Device connected to network");
-            }
-            else {
+                changeView(ActionActivity.class);
+            } else {
                 view.showToast("Could not connect device to network");
             }
 
@@ -102,11 +103,7 @@ public class BluetoothPairController implements Controllable {
                 Log.d(BT_PAIR_CONTROLLER, "Result from thread Device IP setter: " + ip);
                 NetworkService nwService = NetworkService.getInstance();
                 nwService.setDeviceAddress(ip);
-                try {
-                    nwService.get("/");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             } else {
                 Log.e(BT_PAIR_CONTROLLER, "Device IP is null");
             }

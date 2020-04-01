@@ -18,7 +18,7 @@
     <string name="bluetooth_pair_cred_pwsd_hint">Password</string>
     <string name="bluetooth_pair_cred_name_hint">Name</string>
 
-    <!--NETWORK DEVICES STRINGS-->
-    <string name="network_devices_header">Select your Intellisert Device</string>
-    <string name="network_devices_note">Your Device </string>
+    <!--ACTION ACTIVITY STRINGS -->
+    <string name="action_toggle_btn">Light</string>
+    <string name="title_activity_action">ActionActivity</string>
 </resources>

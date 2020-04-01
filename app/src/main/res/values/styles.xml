@@ -21,7 +21,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ApplicationDialog"  parent="Theme.AppCompat.Dialog">
+    <style name="ApplicationDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>

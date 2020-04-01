@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".views.ActionActivity">
+
+    <include
+        android:id="@+id/network_devices_banner"
+        layout="@layout/app_banner" />
+
+    <LinearLayout
+        android:id="@+id/action_row_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/network_devices_banner"
+    >
+
+        <LinearLayout
+            android:id="@+id/light_on_row"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_toggle_btn"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryDark"
+            />
+            <ToggleButton
+                android:id="@+id/action_toggle_on"
+                android:width="@dimen/defaultButtonWidth"
+                android:height="@dimen/defaultButtonHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryComplement"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
